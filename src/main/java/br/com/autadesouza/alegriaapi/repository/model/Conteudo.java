@@ -1,4 +1,4 @@
-package br.com.autadesouza.alegriaapi.model;
+package br.com.autadesouza.alegriaapi.repository.model;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -27,7 +27,7 @@ public class Conteudo {
     }
 
     @Basic
-    @Column(name = "tipo_id", nullable = true)
+    @Column(name = "tipo_id", nullable = true, insertable = false, updatable = false)
     public Long getTipoId() {
         return tipoId;
     }

@@ -1,14 +1,14 @@
-package br.com.autadesouza.alegriaapi.model;
+package br.com.autadesouza.alegriaapi.repository.model;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-public class Tipo {
+public class Genero {
     private long id;
     private String nome;
-    private Collection<Conteudo> conteudosById;
+    private Collection<GeneroMusica> generoMusicasById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -35,9 +35,9 @@ public class Tipo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Tipo tipo = (Tipo) o;
-        return id == tipo.id &&
-                Objects.equals(nome, tipo.nome);
+        Genero genero = (Genero) o;
+        return id == genero.id &&
+                Objects.equals(nome, genero.nome);
     }
 
     @Override
@@ -45,12 +45,12 @@ public class Tipo {
         return Objects.hash(id, nome);
     }
 
-    @OneToMany(mappedBy = "tipoByTipoId")
-    public Collection<Conteudo> getConteudosById() {
-        return conteudosById;
+    @OneToMany(mappedBy = "generoByGeneroId")
+    public Collection<GeneroMusica> getGeneroMusicasById() {
+        return generoMusicasById;
     }
 
-    public void setConteudosById(Collection<Conteudo> conteudosById) {
-        this.conteudosById = conteudosById;
+    public void setGeneroMusicasById(Collection<GeneroMusica> generoMusicasById) {
+        this.generoMusicasById = generoMusicasById;
     }
 }

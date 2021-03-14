@@ -1,15 +1,16 @@
-package br.com.autadesouza.alegriaapi.model;
+package br.com.autadesouza.alegriaapi.repository.model;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "link_conteudo", schema = "public", catalog = "alegria-api")
-public class LinkConteudo {
+@Table(name = "musica_conteudo", schema = "public", catalog = "alegria-api")
+public class MusicaConteudo {
     private long id;
     private Long conteudoId;
-    private String link;
+    private Long musicaId;
     private Conteudo conteudoByConteudoId;
+    private Musica musicaByMusicaId;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -23,7 +24,7 @@ public class LinkConteudo {
     }
 
     @Basic
-    @Column(name = "conteudo_id", nullable = true)
+    @Column(name = "conteudo_id", nullable = true, insertable = false, updatable = false)
     public Long getConteudoId() {
         return conteudoId;
     }
@@ -33,28 +34,28 @@ public class LinkConteudo {
     }
 
     @Basic
-    @Column(name = "link", nullable = true, length = -1)
-    public String getLink() {
-        return link;
+    @Column(name = "musica_id", nullable = true, insertable = false, updatable = false)
+    public Long getMusicaId() {
+        return musicaId;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setMusicaId(Long musicaId) {
+        this.musicaId = musicaId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LinkConteudo that = (LinkConteudo) o;
+        MusicaConteudo that = (MusicaConteudo) o;
         return id == that.id &&
                 Objects.equals(conteudoId, that.conteudoId) &&
-                Objects.equals(link, that.link);
+                Objects.equals(musicaId, that.musicaId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, conteudoId, link);
+        return Objects.hash(id, conteudoId, musicaId);
     }
 
     @ManyToOne
@@ -65,5 +66,15 @@ public class LinkConteudo {
 
     public void setConteudoByConteudoId(Conteudo conteudoByConteudoId) {
         this.conteudoByConteudoId = conteudoByConteudoId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "musica_id", referencedColumnName = "id")
+    public Musica getMusicaByMusicaId() {
+        return musicaByMusicaId;
+    }
+
+    public void setMusicaByMusicaId(Musica musicaByMusicaId) {
+        this.musicaByMusicaId = musicaByMusicaId;
     }
 }

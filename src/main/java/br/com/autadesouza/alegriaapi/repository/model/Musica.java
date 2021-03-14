@@ -1,10 +1,13 @@
-package br.com.autadesouza.alegriaapi.model;
+package br.com.autadesouza.alegriaapi.repository.model;
+
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@Builder
 public class Musica {
     private long id;
     private String titulo;

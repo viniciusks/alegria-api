@@ -1,14 +1,14 @@
-package br.com.autadesouza.alegriaapi.model;
+package br.com.autadesouza.alegriaapi.repository.model;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-public class Categoria {
+public class Tipo {
     private long id;
     private String nome;
-    private Collection<CategoriaConteudo> categoriaConteudosById;
+    private Collection<Conteudo> conteudosById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -35,9 +35,9 @@ public class Categoria {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
-        return id == categoria.id &&
-                Objects.equals(nome, categoria.nome);
+        Tipo tipo = (Tipo) o;
+        return id == tipo.id &&
+                Objects.equals(nome, tipo.nome);
     }
 
     @Override
@@ -45,12 +45,12 @@ public class Categoria {
         return Objects.hash(id, nome);
     }
 
-    @OneToMany(mappedBy = "categoriaByCategoriaId")
-    public Collection<CategoriaConteudo> getCategoriaConteudosById() {
-        return categoriaConteudosById;
+    @OneToMany(mappedBy = "tipoByTipoId")
+    public Collection<Conteudo> getConteudosById() {
+        return conteudosById;
     }
 
-    public void setCategoriaConteudosById(Collection<CategoriaConteudo> categoriaConteudosById) {
-        this.categoriaConteudosById = categoriaConteudosById;
+    public void setConteudosById(Collection<Conteudo> conteudosById) {
+        this.conteudosById = conteudosById;
     }
 }

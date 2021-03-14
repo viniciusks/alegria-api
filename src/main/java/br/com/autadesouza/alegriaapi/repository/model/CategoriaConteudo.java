@@ -1,4 +1,4 @@
-package br.com.autadesouza.alegriaapi.model;
+package br.com.autadesouza.alegriaapi.repository.model;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -24,7 +24,7 @@ public class CategoriaConteudo {
     }
 
     @Basic
-    @Column(name = "conteudo_id", nullable = true)
+    @Column(name = "conteudo_id", nullable = true, insertable = false, updatable = false)
     public Long getConteudoId() {
         return conteudoId;
     }
@@ -34,7 +34,7 @@ public class CategoriaConteudo {
     }
 
     @Basic
-    @Column(name = "categoria_id", nullable = true)
+    @Column(name = "categoria_id", nullable = true, insertable = false, updatable = false)
     public Long getCategoriaId() {
         return categoriaId;
     }

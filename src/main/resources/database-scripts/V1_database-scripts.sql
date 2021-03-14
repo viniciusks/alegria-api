@@ -1,1 +1,0 @@
-create sequence SQ_MUSICA_ID increment 1 start 1;

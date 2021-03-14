@@ -1,4 +1,4 @@
-package br.com.autadesouza.alegriaapi.model;
+package br.com.autadesouza.alegriaapi.repository.model;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -24,7 +24,7 @@ public class GeneroMusica {
     }
 
     @Basic
-    @Column(name = "musica_id", nullable = true)
+    @Column(name = "musica_id", nullable = true, insertable = false, updatable = false)
     public Long getMusicaId() {
         return musicaId;
     }
@@ -34,7 +34,7 @@ public class GeneroMusica {
     }
 
     @Basic
-    @Column(name = "genero_id", nullable = true)
+    @Column(name = "genero_id", nullable = true, insertable = false, updatable = false)
     public Long getGeneroId() {
         return generoId;
     }

@@ -1,4 +1,4 @@
-package br.com.autadesouza.alegriaapi.controller.validator;
+package br.com.autadesouza.alegriaapi.validation.validator;
 
 import br.com.autadesouza.alegriaapi.controller.request.MusicaRequest;
 import org.springframework.beans.factory.annotation.Autowired;
