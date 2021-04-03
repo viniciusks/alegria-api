@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @AllArgsConstructor
-public class MusicaRequest {
+public class EditMusicaRequest {
 
     @NotNull(message = "{mandatory}", groups = Mandatory.class)
     private String titulo;
@@ -33,7 +33,7 @@ public class MusicaRequest {
 
     public Musica toDomain() {
         var autores = this.autores.stream()
-                .map(AutorRequest::toDomain)
+                .map(AutorRequest::toDomainWithId)
                 .collect(Collectors.toList());
 
         var generos = this.generos.stream()
@@ -41,7 +41,7 @@ public class MusicaRequest {
                 .collect(Collectors.toList());
 
         var letras = this.letras.stream()
-                .map(letra -> letra.toDomain())
+                .map(LetraRequest::toDomainWithId)
                 .collect(Collectors.toSet());
 
         return Musica.builder()

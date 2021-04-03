@@ -119,4 +119,31 @@ public class DefaultExceptionHandler {
 
         return new ResponseEntity<>(status);
     }
+
+    @ExceptionHandler(MusicaNotFoundException.class)
+    private ResponseEntity<ErrorResponse> handleMusicaNotFoundException
+            (final MusicaNotFoundException ex) {
+
+        final var converter = this.errorConverterFactory.getConverter(MusicaNotFoundException.class);
+        final var errorResponse = converter.toErrorResponse(ex);
+        return new ResponseEntity<>(errorResponse, errorResponse.getHttpStatus());
+    }
+
+    @ExceptionHandler(GeneroNotFoundException.class)
+    private ResponseEntity<ErrorResponse> handleGeneroNotFoundException
+            (final GeneroNotFoundException ex) {
+
+        final var converter = this.errorConverterFactory.getConverter(GeneroNotFoundException.class);
+        final var errorResponse = converter.toErrorResponse(ex);
+        return new ResponseEntity<>(errorResponse, errorResponse.getHttpStatus());
+    }
+
+    @ExceptionHandler(AutorNotFoundException.class)
+    private ResponseEntity<ErrorResponse> handleAutorNotFoundException
+            (final AutorNotFoundException ex) {
+
+        final var converter = this.errorConverterFactory.getConverter(AutorNotFoundException.class);
+        final var errorResponse = converter.toErrorResponse(ex);
+        return new ResponseEntity<>(errorResponse, errorResponse.getHttpStatus());
+    }
 }

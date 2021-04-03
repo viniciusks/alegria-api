@@ -1,101 +1,62 @@
 package br.com.autadesouza.alegriaapi.repository.model;
 
-import lombok.Builder;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.List;
+import java.util.Set;
+
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@Table(name = "musica")
 public class Musica {
-    private long id;
-    private String titulo;
-    private String tonalidade;
-    private Collection<AutorMusica> autorMusicasById;
-    private Collection<GeneroMusica> generoMusicasById;
-    private Collection<Letra> letrasById;
-    private Collection<MusicaConteudo> musicaConteudosById;
 
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
-        return id;
+    private long id;
+
+    @Column(name = "titulo", length = -1)
+    private String titulo;
+
+    @Column(name = "tonalidade", length = 7)
+    private String tonalidade;
+
+    @ManyToMany(cascade = ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "autor_musica",
+            joinColumns = {@JoinColumn(name = "musica_id")},
+            inverseJoinColumns = {@JoinColumn(name = "autor_id")}
+    )
+    private List<Autor> autores;
+
+    @OneToMany(cascade = ALL)
+    @JoinTable(
+            name = "genero_musica",
+            joinColumns = {@JoinColumn(name = "musica_id")},
+            inverseJoinColumns = {@JoinColumn(name = "genero_id")}
+    )
+    private List<Genero> generos;
+
+    @OneToMany(cascade = ALL, orphanRemoval = true)
+    @JoinColumn(name="musica_id")
+    private Set<Letra> letras;
+
+    public void setGeneros(List<Genero> generos) {
+        this.generos.clear();
+        this.generos.addAll(generos);
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Basic
-    @Column(name = "titulo", nullable = true, length = -1)
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    @Basic
-    @Column(name = "tonalidade", nullable = true, length = 7)
-    public String getTonalidade() {
-        return tonalidade;
-    }
-
-    public void setTonalidade(String tonalidade) {
-        this.tonalidade = tonalidade;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Musica musica = (Musica) o;
-        return id == musica.id &&
-                Objects.equals(titulo, musica.titulo) &&
-                Objects.equals(tonalidade, musica.tonalidade);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, titulo, tonalidade);
-    }
-
-    @OneToMany(mappedBy = "musicaByMusicaId", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Collection<AutorMusica> getAutorMusicasById() {
-        return autorMusicasById;
-    }
-
-    public void setAutorMusicasById(Collection<AutorMusica> autorMusicasById) {
-        this.autorMusicasById = autorMusicasById;
-    }
-
-    @OneToMany(mappedBy = "musicaByMusicaId", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Collection<GeneroMusica> getGeneroMusicasById() {
-        return generoMusicasById;
-    }
-
-    public void setGeneroMusicasById(Collection<GeneroMusica> generoMusicasById) {
-        this.generoMusicasById = generoMusicasById;
-    }
-
-    @OneToMany(mappedBy = "musicaByMusicaId", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Collection<Letra> getLetrasById() {
-        return letrasById;
-    }
-
-    public void setLetrasById(Collection<Letra> letrasById) {
-        this.letrasById = letrasById;
-    }
-
-    @OneToMany(mappedBy = "musicaByMusicaId", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Collection<MusicaConteudo> getMusicaConteudosById() {
-        return musicaConteudosById;
-    }
-
-    public void setMusicaConteudosById(Collection<MusicaConteudo> musicaConteudosById) {
-        this.musicaConteudosById = musicaConteudosById;
+    public void setLetras(Set<Letra> letras) {
+        this.letras.clear();
+        this.letras.addAll(letras);
     }
 }

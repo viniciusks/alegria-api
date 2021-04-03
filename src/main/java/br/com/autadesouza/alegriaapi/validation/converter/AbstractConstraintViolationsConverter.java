@@ -5,6 +5,7 @@ import br.com.autadesouza.alegriaapi.controller.response.ErrorResponse;
 import br.com.autadesouza.alegriaapi.utils.MessageProperties;
 import br.com.autadesouza.alegriaapi.validation.annotation.Mandatory;
 import br.com.autadesouza.alegriaapi.validation.annotation.StringMatchWithEnum;
+import br.com.autadesouza.alegriaapi.validation.annotation.Values;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
@@ -90,11 +91,16 @@ public abstract class AbstractConstraintViolationsConverter<T> implements ErrorC
             return REQUIRED_PARAMETER;
         }
 
-        if(containsMandatories(groups)) {
+        if(containsFormatters(groups)) {
             return INVALID_PARAMETER;
         }
 
         return UNMAPPED_ERROR;
+    }
+
+    private boolean containsFormatters(final Set<Class<?>> groups) {
+        final Set<Class<?>> formatters = Sets.newHashSet(Values.class);
+        return formatters.stream().anyMatch(groups::contains);
     }
 
     private String getMessage(ConstraintViolation<?> violation, Object rootBean) {

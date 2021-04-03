@@ -1,0 +1,183 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Alegria-API",
+		"_postman_id": "6c261830-d399-bf48-3575-0c314870a7f8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "musicas",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Musica",
+					"request": {
+						"url": "http://localhost:8080/musicas",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"titulo\":\"O Chamado\",\r\n   \"tonalidade\":\"E\",\r\n   \"autores\":[\r\n      {\r\n        \"nome\":\"Evangelizar é Amar\",\r\n        \"email\":\"evangelizar@gmail.com\",\r\n        \"telefone\":\"34999999999\",\r\n        \"pais\":\"BRA\",\r\n        \"estado\":\"RS\",\r\n        \"cidade\":\"Porto Alegre\"\r\n      }\r\n   ],\r\n   \"generos\":[\r\n      {\r\n        \"id\":\"1\",\r\n        \"nome\":\"animada\"\r\n      }\r\n   ],\r\n   \"letras\":[\r\n      {\r\n         \"ordem\":1,\r\n         \"tipo\":\"l\",\r\n         \"texto\":\"Esquece o tempo\"\r\n      },\r\n      {\r\n         \"ordem\":2,\r\n         \"tipo\":\"c\",\r\n         \"texto\":\"E\"\r\n      },\r\n            {\r\n         \"ordem\":3,\r\n         \"tipo\":\"l\",\r\n         \"texto\":\"Preocupado em teres o que os outros tens\"\r\n      },\r\n      {\r\n         \"ordem\":4,\r\n         \"tipo\":\"c\",\r\n         \"texto\":\"                C#m\"\r\n      }\r\n   ]\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Musica",
+					"request": {
+						"url": "http://localhost:8080/musicas/138",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"titulo\":\"O Chamado\",\r\n   \"tonalidade\":\"E\",\r\n   \"autores\":[\r\n      {\r\n      \t\"id\": \"67\",\r\n        \"nome\":\"Evangelizar é Amar\",\r\n        \"email\":\"evangelizar@gmail.com\",\r\n        \"telefone\":\"34999999999\",\r\n        \"pais\":\"BRA\",\r\n        \"estado\":\"RS\",\r\n        \"cidade\":\"Porto Alegre\"\r\n      }\r\n   ],\r\n   \"generos\":[\r\n      {\r\n        \"id\":\"59\",\r\n        \"nome\":\"harmonica\"\r\n      }\r\n   ],\r\n   \"letras\":[\r\n      {\t\r\n         \"id\": \"219\",\r\n         \"ordem\":1,\r\n         \"tipo\":\"l\",\r\n         \"texto\":\"Esquece o tempo\"\r\n      },\r\n      {\r\n         \"id\": \"220\",\r\n         \"ordem\":2,\r\n         \"tipo\":\"c\",\r\n         \"texto\":\"E\"\r\n      },\r\n      {\r\n         \"id\": \"221\",\r\n         \"ordem\":3,\r\n         \"tipo\":\"l\",\r\n         \"texto\":\"Preocupado em teres o que os outros tens\"\r\n      },\r\n      {\r\n         \"id\": \"222\",\r\n         \"ordem\":4,\r\n         \"tipo\":\"c\",\r\n         \"texto\":\"                 C#m\"\r\n      }\r\n   ]\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Musicas",
+					"request": {
+						"url": "http://localhost:8080/musicas",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"titulo\": \"A Vida Não Cessa\",\n\t\"tonalidade\": \"D\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Musica By Id",
+					"request": {
+						"url": "http://localhost:8080/musicas/137",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"titulo\": \"A Vida Não Cessa\",\n\t\"tonalidade\": \"D\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "autores",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Autor",
+					"request": {
+						"url": "http://localhost:8080/autores",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Rinaldo Giatti\",\n\t\"email\": \"rinaldogiatti@gmail.com\",\n\t\"telefone\": \"34999999999\",\n\t\"pais\": \"BRA\",\n\t\"estado\": \"MG\",\n\t\"cidade\": \"Paracatu\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Autor",
+					"request": {
+						"url": "http://localhost:8080/autores/66",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Denis Soares\",\n\t\"email\": \"denissoares@gmail.com\",\n\t\"telefone\": \"34999999999\",\n\t\"pais\": \"BRA\",\n\t\"estado\": \"SE\",\n\t\"cidade\": \"Aracaju\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Autores",
+					"request": {
+						"url": "http://localhost:8080/autores",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"titulo\": \"A Vida Não Cessa\",\n\t\"tonalidade\": \"D\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Autor By Id",
+					"request": {
+						"url": "http://localhost:8080/autores/68",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"titulo\": \"A Vida Não Cessa\",\n\t\"tonalidade\": \"D\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
