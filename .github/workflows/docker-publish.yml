@@ -14,7 +14,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: concafrastech/alegria_api
+  IMAGE_NAME: concafrastech/alegriaapi
 
 jobs:
   # Run tests.
