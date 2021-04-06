@@ -15,6 +15,6 @@ RUN java --version
 RUN cd /app && ls && mvn clean install
 
 # Adicionando .jar para o workdir
-ADD /target/*.jar /app/app_alegria_api.jar
+ADD /app/target/*.jar /app/app_alegria_api.jar
 WORKDIR /app
 ENTRYPOINT java -jar app_alegria_api.jar
