@@ -37,7 +37,7 @@ public class MusicaRequest {
                 .collect(Collectors.toList());
 
         var generos = this.generos.stream()
-                .map(GeneroRequest::toDomainWithId)
+                .map(GeneroRequest::toDomain)
                 .collect(Collectors.toList());
 
         var letras = this.letras.stream()

@@ -21,12 +21,6 @@ public class GeneroRequest {
 
     public Genero toDomain() {
         return Genero.builder()
-                .nome(this.nome)
-                .build();
-    }
-
-    public Genero toDomainWithId() {
-        return Genero.builder()
                 .id(this.id)
                 .nome(this.nome)
                 .build();

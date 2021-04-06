@@ -33,17 +33,6 @@ public class AutorRequest {
 
     public Autor toDomain() {
         return Autor.builder()
-                .nome(this.nome)
-                .email(this.email)
-                .telefone(this.telefone)
-                .pais(this.pais)
-                .estado(this.estado)
-                .cidade(this.cidade)
-                .build();
-    }
-
-    public Autor toDomainWithId() {
-        return Autor.builder()
                 .id(this.id)
                 .nome(this.nome)
                 .email(this.email)

@@ -1,9 +1,7 @@
 package br.com.autadesouza.alegriaapi.controller;
 
 import br.com.autadesouza.alegriaapi.controller.request.AutorRequest;
-import br.com.autadesouza.alegriaapi.controller.request.EditMusicaRequest;
 import br.com.autadesouza.alegriaapi.controller.response.AutorResponse;
-import br.com.autadesouza.alegriaapi.controller.response.MusicaResponse;
 import br.com.autadesouza.alegriaapi.service.AutoresService;
 import br.com.autadesouza.alegriaapi.validation.annotation.Mandatory;
 import br.com.autadesouza.alegriaapi.validation.annotation.Values;
