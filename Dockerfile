@@ -1,3 +1,11 @@
 FROM openjdk:11.0.10-jdk-slim
-RUN ls
-RUN java --version
+
+RUN addgroup -S spring && adduser -S spring -G spring
+
+USER spring:spring
+
+ARG JAR_FILE=target/*.jar
+
+COPY ${JAR_FILE} app.jar
+
+ENTRYPOINT ["java", "-jar", "/app.jar"] 
