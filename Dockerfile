@@ -12,9 +12,11 @@ RUN apt install -y maven default-jdk
 RUN java --version
 
 # Executando build
-RUN cd /app && ls && mvn clean install
+RUN cd /app && mvn clean install
 
 # Adicionando .jar para o workdir
-ADD /app/target/*.jar /app/app_alegria_api.jar
+RUN cp /app/target/*.jar /app && mv *.jar app_alegria_api.jar
+
 WORKDIR /app
+
 ENTRYPOINT java -jar app_alegria_api.jar
