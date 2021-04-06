@@ -50,7 +50,7 @@ jobs:
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Log into registry
-        run: docker login hub.docker.com -u concafrastech -p conca@@2011
+        run: docker login -u concafrastech -p conca@@2011
 
       - name: Push image
         run: |
