@@ -62,6 +62,9 @@ jobs:
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
+          # Version 2
+          VERSION_2=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+
           # Strip "v" prefix from tag name
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
@@ -70,6 +73,10 @@ jobs:
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
+          echo VERSION_2=$VERSION_2
 
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION_2
+
           docker push $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION_2
