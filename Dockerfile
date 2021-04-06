@@ -1,7 +1,8 @@
 FROM openjdk:11.0.10-jdk-slim
 
-ARG JAR_FILE=target/*.jar
+RUN mkdir app
+RUN ls
 
-COPY ${JAR_FILE} ./app.jar
+COPY target/ app/
 
 ENTRYPOINT ["java", "-jar", "/app.jar"] 
