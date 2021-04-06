@@ -63,7 +63,7 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
           # Version 2
-          VERSION_2=$(echo "${{ github.commit }}")
+          VERSION_2=$(date +'%Y_%m_%d_%H_%M')
 
           # Strip "v" prefix from tag name
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
