@@ -10,13 +10,12 @@ branches:
   only:
     - main
 before_script:
-  - sudo snap install --classic heroku
-  - '(echo $HEROKU_CREDENTIALS_EMAIL echo $HEROKU_CREDENTIALS_PASSWORD) | heroku login'
-  - heroku create
-  - pwd
-script:
   - java --version
+script:
   - mvnw clean install
   - mvnw test
-after_script:
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then git push heroku main; fi'
+after_success:
+  deploy:
+    provider: heroku
+    api_key: 538dbe2d-c81e-4e95-a568-99687db39b2f
+    app: api-alegria
