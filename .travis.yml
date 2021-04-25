@@ -12,8 +12,8 @@ branches:
 before_script:
   - java --version
 script:
-  - mvnw clean install
-  - mvnw test
+  - mvn clean install
+  - mvn test
 after_success:
   deploy:
     provider: heroku
