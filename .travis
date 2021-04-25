@@ -1,0 +1,21 @@
+language: java
+jdk:
+  - oraclejdk11
+dist: trusty
+sudo: required
+cache:
+  directories:
+    - $HOME/.m2
+branches:
+  only:
+    - main
+before_script:
+  - 'curl https://cli-assets.heroku.com/install-ubuntu.sh | sh'
+  - '(echo $HEROKU_CREDENTIALS_EMAIL echo $HEROKU_CREDENTIALS_PASSWORD) | heroku login'
+  - heroku create
+script:
+  - java --version
+  - mvnw clean install
+  - mvnw test
+after_script:
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then git push heroku master; fi'
