@@ -13,9 +13,10 @@ before_script:
   - 'curl https://cli-assets.heroku.com/install-ubuntu.sh | sh'
   - '(echo $HEROKU_CREDENTIALS_EMAIL echo $HEROKU_CREDENTIALS_PASSWORD) | heroku login'
   - heroku create
+  - ls
 script:
   - java --version
   - mvnw clean install
   - mvnw test
 after_script:
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then git push heroku master; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then git push heroku main; fi'
