@@ -10,7 +10,7 @@ branches:
   only:
     - main
 before_script:
-  - 'curl https://cli-assets.heroku.com/install-ubuntu.sh | sh'
+  - sudo snap install --classic heroku
   - '(echo $HEROKU_CREDENTIALS_EMAIL echo $HEROKU_CREDENTIALS_PASSWORD) | heroku login'
   - heroku create
   - ls
