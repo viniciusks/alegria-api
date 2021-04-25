@@ -1,6 +1,5 @@
 package br.com.autadesouza.alegriaapi.controller;
 
-import br.com.autadesouza.alegriaapi.controller.request.EditMusicaRequest;
 import br.com.autadesouza.alegriaapi.controller.request.MusicaRequest;
 import br.com.autadesouza.alegriaapi.controller.response.MusicaResponse;
 import br.com.autadesouza.alegriaapi.service.MusicasService;
@@ -51,7 +50,7 @@ public class MusicasController {
 
     @PutMapping("/{id}")
     public ResponseEntity<MusicaResponse> editMusica(@RequestBody @Validated({Mandatory.class, Values.class})
-                                                             EditMusicaRequest editMusicaRequest, @PathVariable("id") Long id) throws Exception {
+                                                             MusicaRequest editMusicaRequest, @PathVariable("id") Long id) throws Exception {
         musicasRequestValidator.validate(editMusicaRequest);
 
         final var musica = MusicaResponse.fromDomain(musicasService

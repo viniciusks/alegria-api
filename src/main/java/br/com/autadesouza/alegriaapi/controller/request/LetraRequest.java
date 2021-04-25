@@ -31,13 +31,4 @@ public class LetraRequest {
                 .texto(this.texto)
                 .build();
     }
-
-    public Letra toDomainWithId() {
-        return Letra.builder()
-                .id(this.id)
-                .ordem(this.ordem)
-                .tipo(this.tipo)
-                .texto(this.texto)
-                .build();
-    }
 }

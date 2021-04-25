@@ -1,6 +1,5 @@
 package br.com.autadesouza.alegriaapi.validation.validator;
 
-import br.com.autadesouza.alegriaapi.controller.request.EditMusicaRequest;
 import br.com.autadesouza.alegriaapi.controller.request.MusicaRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,14 +14,6 @@ public class MusicasRequestValidator {
 
     public void validate(final MusicaRequest musicaRequest) {
         final var violations = validator.validate(musicaRequest);
-
-        if(!violations.isEmpty()) {
-            throw new RuntimeException("Runtime exception");
-        }
-    }
-
-    public void validate(final EditMusicaRequest editMusicaRequest) {
-        final var violations = validator.validate(editMusicaRequest);
 
         if(!violations.isEmpty()) {
             throw new RuntimeException("Runtime exception");
