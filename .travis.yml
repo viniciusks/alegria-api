@@ -13,7 +13,7 @@ before_script:
   - sudo snap install --classic heroku
   - '(echo $HEROKU_CREDENTIALS_EMAIL echo $HEROKU_CREDENTIALS_PASSWORD) | heroku login'
   - heroku create
-  - ls
+  - pwd
 script:
   - java --version
   - mvnw clean install
