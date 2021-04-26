@@ -1,8 +1,8 @@
+dist: trusty
 language: java
+sudo: required
 jdk:
   - oraclejdk11
-dist: trusty
-sudo: required
 cache:
   directories:
     - $HOME/.m2
@@ -17,12 +17,10 @@ script:
   - mvn clean install -DskipTests
 
 # Stage Deploy
-before_deploy:
-  - travis encrypt $HEROKU_API_KEY --add deploy.api_key --pro
 deploy:
   provider: heroku
   api_key:
     secure: $HEROKU_API_KEY
   on:
     branch: main
-  app: api-alegria
+  app: $APP
