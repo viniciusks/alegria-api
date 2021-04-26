@@ -13,8 +13,7 @@ before_script:
   - java --version
 script:
   - mvn clean install -DskipTests
-after_success:
-  deploy:
-    provider: heroku
-    api_key: 538dbe2d-c81e-4e95-a568-99687db39b2f
-    app: api-alegria
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app: api-alegria
