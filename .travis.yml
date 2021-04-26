@@ -17,10 +17,12 @@ script:
   - mvn clean install -DskipTests
 
 # Stage Deploy
+before_deploy:
+  - travis encrypt 0688bd02-9296-4b14-8634-956b71a4d3a9 --add deploy.api_key --pro
 deploy:
   provider: heroku
   api_key:
-    secure: $HEROKU_API_KEY
+    secure: 0688bd02-9296-4b14-8634-956b71a4d3a9
   on:
     branch: main
   app: api-alegria
