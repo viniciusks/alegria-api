@@ -15,12 +15,14 @@ before_script:
   - java --version
 script:
   - mvn clean install -DskipTests
+  - echo $HEROKU_API_KEY
+  - echo $APP
 
 # Stage Deploy
 deploy:
-  provider: heroku
+  provider: heroku:git
+  app: $APP
   api_key:
     secure: $HEROKU_API_KEY
   on:
     branch: main
-  app: $APP
