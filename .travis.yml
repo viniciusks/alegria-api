@@ -15,5 +15,8 @@ script:
   - mvn clean install -DskipTests
 deploy:
   provider: heroku
-  api_key: $HEROKU_API_KEY
+  api_key:
+    secure: $HEROKU_API_KEY
+  on:
+    branch: main
   app: api-alegria
