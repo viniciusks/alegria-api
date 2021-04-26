@@ -9,10 +9,14 @@ cache:
 branches:
   only:
     - main
+
+# Stage Build
 before_script:
   - java --version
 script:
   - mvn clean install -DskipTests
+
+# Stage Deploy
 deploy:
   provider: heroku
   api_key:
