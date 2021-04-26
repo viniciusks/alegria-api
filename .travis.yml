@@ -12,7 +12,7 @@ branches:
 before_script:
   - java --version
 script:
-  - mvn clean install
+  - mvn clean install -DskipTests
 after_success:
   deploy:
     provider: heroku
