@@ -1,6 +1,5 @@
 dist: trusty
 language: java
-sudo: required
 jdk:
   - oraclejdk11
 cache:
@@ -13,14 +12,16 @@ branches:
 # Stage Build
 before_script:
   - java --version
+  - heroku login
 script:
   - mvn clean install -DskipTests
   - echo $HEROKU_API_KEY
   - echo $APP
+  - git --version
 
 # Stage Deploy
 deploy:
-  provider: heroku:git
+  provider: heroku
   app: $APP
   api_key:
     secure: $HEROKU_API_KEY
