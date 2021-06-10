@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 public class GeneroRequest {
 
     @NotNull(message = "{mandatory}", groups = Mandatory.class)
-    private Long id;
+    private String id;
 
     @NotNull(message = "{mandatory}", groups = Mandatory.class)
     private String nome;

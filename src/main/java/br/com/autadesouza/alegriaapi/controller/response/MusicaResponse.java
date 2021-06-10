@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 @Builder
 public class MusicaResponse {
 
-    private Long id;
+    private String id;
 
     private String titulo;
 
@@ -25,7 +24,7 @@ public class MusicaResponse {
 
     private List<GeneroResponse> generos;
 
-    private Set<LetraResponse> letras;
+    private List<LetraResponse> letras;
 
     public static MusicaResponse fromDomain(Musica musica) {
 
@@ -36,7 +35,7 @@ public class MusicaResponse {
                 : musica.getGeneros().stream().map(GeneroResponse::fromDomain).collect(Collectors.toList());
 
         var letras = Objects.isNull(musica.getLetras()) ? null
-                : musica.getLetras().stream().map(LetraResponse::fromDomain).collect(Collectors.toSet());
+                : musica.getLetras().stream().map(LetraResponse::fromDomain).collect(Collectors.toList());
 
         return MusicaResponse.builder()
                 .id(musica.getId())

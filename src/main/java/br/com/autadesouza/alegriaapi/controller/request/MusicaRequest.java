@@ -11,7 +11,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -32,7 +31,7 @@ public class MusicaRequest {
 
     @Valid
     @Size(message = "{invalid_list_size_min}", min = 1, groups = Values.class)
-    private Set<LetraRequest> letras;
+    private List<LetraRequest> letras;
 
     public Musica toDomain() {
         var autores = this.autores.stream()
@@ -45,7 +44,7 @@ public class MusicaRequest {
 
         var letras = this.letras.stream()
                 .map(letra -> letra.toDomain())
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
 
         return Musica.builder()
                 .titulo(this.titulo)

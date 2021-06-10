@@ -3,7 +3,11 @@ package br.com.autadesouza.alegriaapi.service;
 
 import br.com.autadesouza.alegriaapi.repository.model.Genero;
 
+import java.util.List;
+
 public interface GenerosService {
 
-    Genero getGeneroById(Long id) throws Exception;
+    List<Genero> getGeneros();
+
+    Genero getGeneroById(String id);
 }

@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class AutorRequest {
 
-    private Long id;
+    private String id;
 
     @NotNull(message = "{mandatory}", groups = Mandatory.class)
     private String nome;

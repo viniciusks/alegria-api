@@ -36,18 +36,18 @@ public class AutoresController {
     @GetMapping
     public ResponseEntity<AutorResponse> getAutores() {
         List<AutorResponse> autores = AutorResponse.fromDomain(autoresService.getAutores());
-        return new ResponseEntity(autores, CREATED);
+        return new ResponseEntity(autores, OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AutorResponse> getAutorById(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<AutorResponse> getAutorById(@PathVariable("id") String id) throws Exception {
         AutorResponse autor = AutorResponse.fromDomain(autoresService.getAutorById(id));
-        return new ResponseEntity(autor, CREATED);
+        return new ResponseEntity(autor, OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AutorResponse> editAutor(@RequestBody @Validated({Mandatory.class, Values.class})
-                                                             AutorRequest autorRequest, @PathVariable("id") Long id) throws Exception {
+                                                             AutorRequest autorRequest, @PathVariable("id") String id) throws Exception {
         autoresRequestValidator.validate(autorRequest);
 
         final var autor = AutorResponse.fromDomain(autoresService
