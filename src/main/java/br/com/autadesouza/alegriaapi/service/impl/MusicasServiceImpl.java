@@ -3,21 +3,22 @@ package br.com.autadesouza.alegriaapi.service.impl;
 import br.com.autadesouza.alegriaapi.repository.MusicasRepository;
 import br.com.autadesouza.alegriaapi.repository.model.Autor;
 import br.com.autadesouza.alegriaapi.repository.model.Genero;
+import br.com.autadesouza.alegriaapi.repository.model.Letra;
 import br.com.autadesouza.alegriaapi.repository.model.Musica;
 import br.com.autadesouza.alegriaapi.service.AutoresService;
 import br.com.autadesouza.alegriaapi.service.GenerosService;
+import br.com.autadesouza.alegriaapi.service.LetrasService;
 import br.com.autadesouza.alegriaapi.service.MusicasService;
-import br.com.autadesouza.alegriaapi.validation.exception.AutorNotFoundException;
-import br.com.autadesouza.alegriaapi.validation.exception.GeneroNotFoundException;
 import br.com.autadesouza.alegriaapi.validation.exception.MusicaNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Service
 @AllArgsConstructor
 public class MusicasServiceImpl implements MusicasService {
@@ -28,41 +29,36 @@ public class MusicasServiceImpl implements MusicasService {
 
     private final AutoresService autoresService;
 
+    private final LetrasService letrasService;
+
     @Override
-    @Transactional
     public Musica createMusica(Musica musica) {
         List<Genero> generosMusica = getGeneros(musica);
         List<Autor> autoresMusica = getAutores(musica);
+        List<Letra> letrasMusica = createLetras(musica.getLetras());
 
         musica.setGeneros(generosMusica);
         musica.setAutores(autoresMusica);
+        musica.setLetras(letrasMusica);
 
-        var novaMusica = musicasRepository.saveAndFlush(musica);
+        var novaMusica = musicasRepository.save(musica);
         return novaMusica;
+    }
+
+    private List<Letra> createLetras(List<Letra> letras) {
+        return letrasService.createLetra(letras);
     }
 
     private List<Autor> getAutores(Musica musica) {
         List<Autor> autoresMusica = musica.getAutores().stream()
-                .map(autor -> {
-                    try {
-                        return autoresService.getAutorById(autor.getId());
-                    } catch (Exception e) {
-                        throw new AutorNotFoundException("Autor not found.");
-                    }
-                })
+                .map(autor -> autoresService.getAutorById(autor.getId()))
                 .collect(Collectors.toList());
         return autoresMusica;
     }
 
     private List<Genero> getGeneros(Musica musica) {
         List<Genero> generosMusica = musica.getGeneros().stream()
-                .map(genero -> {
-                    try {
-                        return generosService.getGeneroById(genero.getId());
-                    } catch (Exception e) {
-                        throw new GeneroNotFoundException("Genero not found.");
-                    }
-                })
+                .map(genero -> generosService.getGeneroById(genero.getId()))
                 .collect(Collectors.toList());
         return generosMusica;
     }
@@ -73,26 +69,29 @@ public class MusicasServiceImpl implements MusicasService {
     }
 
     @Override
-    public Musica getMusicaById(Long id) throws Exception {
+    public Musica getMusicaById(String id) {
         Optional<Musica> optMusica = musicasRepository.findById(id);
-        return optMusica.orElseThrow(() -> new MusicaNotFoundException("Musica not found."));
+        return optMusica.orElseThrow(() -> {
+            log.info("m=getMusicaById msg=Musica not found, musicaId={}", id);
+            return new MusicaNotFoundException("Musica not found.");
+        });
     }
 
     @Override
-    @Transactional
-    public Musica editMusica(Musica novaMusica, Long idMusica) throws Exception {
-        Optional<Musica> optMusica = musicasRepository.findById(idMusica);
-        if(optMusica.isPresent()) {
-            Musica musica = optMusica.get();
-            musica.setTitulo(novaMusica.getTitulo());
-            musica.setTonalidade(novaMusica.getTonalidade());
-            musica.setAutores(novaMusica.getAutores());
-            musica.setGeneros(novaMusica.getGeneros());
-            musica.setLetras(novaMusica.getLetras());
+    public Musica editMusica(Musica musicaAtualizada, String idMusica) {
+        Musica musica = this.getMusicaById(idMusica);
+        musica.setTitulo(musicaAtualizada.getTitulo());
+        musica.setTonalidade(musicaAtualizada.getTonalidade());
+        musica.setAutores(musicaAtualizada.getAutores());
+        musica.setGeneros(musicaAtualizada.getGeneros());
+        musica.setLetras(createLetras(musicaAtualizada.getLetras()));
 
-            return this.createMusica(musica);
-        } else {
-            throw new MusicaNotFoundException("Musica not found.");
-        }
+        return musicasRepository.save(musica);
+    }
+
+    @Override
+    public void deleteMusica(String id) {
+        Musica musica = this.getMusicaById(id);
+        musicasRepository.delete(musica);
     }
 }

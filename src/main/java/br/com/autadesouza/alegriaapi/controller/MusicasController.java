@@ -39,22 +39,27 @@ public class MusicasController {
     @GetMapping
     public ResponseEntity<MusicaResponse> getMusicas() {
         List<MusicaResponse> musicas = MusicaResponse.fromDomain(musicasService.getMusicas());
-        return new ResponseEntity(musicas, CREATED);
+        return new ResponseEntity(musicas, OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MusicaResponse> getMusicaById(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<MusicaResponse> getMusicaById(@PathVariable("id") String id) throws Exception {
         MusicaResponse musica = MusicaResponse.fromDomain(musicasService.getMusicaById(id));
-        return new ResponseEntity(musica, CREATED);
+        return new ResponseEntity(musica, OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<MusicaResponse> editMusica(@RequestBody @Validated({Mandatory.class, Values.class})
-                                                             MusicaRequest editMusicaRequest, @PathVariable("id") Long id) throws Exception {
+                                                             MusicaRequest editMusicaRequest, @PathVariable("id") String id) throws Exception {
         musicasRequestValidator.validate(editMusicaRequest);
 
         final var musica = MusicaResponse.fromDomain(musicasService
                 .editMusica(editMusicaRequest.toDomain(), id));
         return new ResponseEntity<>(musica, OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMusica(@PathVariable("id") String id) {
+        musicasService.deleteMusica(id);
     }
 }

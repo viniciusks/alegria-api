@@ -17,7 +17,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonInclude(NON_NULL)
 public class AutorResponse {
 
-    private Long id;
+    private String id;
 
     private String nome;
 

@@ -1,16 +1,14 @@
 package br.com.autadesouza.alegriaapi.controller.response;
 
-import br.com.autadesouza.alegriaapi.repository.model.Autor;
 import br.com.autadesouza.alegriaapi.repository.model.Genero;
+import br.com.autadesouza.alegriaapi.repository.model.Musica;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -20,7 +18,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonInclude(NON_NULL)
 public class GeneroResponse {
 
-    private long id;
+    private String id;
 
     private String nome;
 
@@ -29,5 +27,10 @@ public class GeneroResponse {
                 .id(genero.getId())
                 .nome(genero.getNome())
                 .build();
+    }
+
+    public static List<GeneroResponse> fromDomain(List<Genero> generos) {
+        return generos.stream().map(genero -> fromDomain(genero))
+                .collect(Collectors.toList());
     }
 }

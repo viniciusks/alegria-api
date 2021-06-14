@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class LetraRequest {
 
-    private Long id;
+    private String id;
 
     @NotNull(message = "{mandatory}", groups = Mandatory.class)
     private Integer ordem;
@@ -26,6 +26,7 @@ public class LetraRequest {
 
     public Letra toDomain() {
         return Letra.builder()
+                .id(this.id)
                 .ordem(this.ordem)
                 .tipo(this.tipo)
                 .texto(this.texto)
