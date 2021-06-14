@@ -2,7 +2,6 @@ package br.com.autadesouza.alegriaapi.service;
 
 
 import br.com.autadesouza.alegriaapi.repository.model.Autor;
-import br.com.autadesouza.alegriaapi.repository.model.Musica;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public interface AutoresService {
 
     List<Autor> getAutores();
 
-    Autor getAutorById(Long id) throws Exception;
+    Autor getAutorById(String id);
 
-    Autor editAutor(final Autor novoAutor, final Long idAutor) throws Exception;
+    Autor editAutor(final Autor novoAutor, final String idAutor) throws Exception;
 }

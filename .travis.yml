@@ -1,22 +1,29 @@
+dist: trusty
 language: java
 jdk:
   - oraclejdk11
-dist: trusty
-sudo: required
 cache:
   directories:
     - $HOME/.m2
 branches:
   only:
     - main
+
+# Stage Build
 before_script:
-  - 'curl https://cli-assets.heroku.com/install-ubuntu.sh | sh'
-  - '(echo $HEROKU_CREDENTIALS_EMAIL echo $HEROKU_CREDENTIALS_PASSWORD) | heroku login'
-  - heroku create
-  - ls
-script:
   - java --version
-  - mvnw clean install
-  - mvnw test
-after_script:
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then git push heroku main; fi'
+  - heroku login
+script:
+  - mvn clean install -DskipTests
+  - echo $HEROKU_API_KEY
+  - echo $APP
+  - git --version
+
+# Stage Deploy
+deploy:
+  provider: heroku
+  app: $APP
+  api_key:
+    secure: $HEROKU_API_KEY
+  on:
+    branch: main

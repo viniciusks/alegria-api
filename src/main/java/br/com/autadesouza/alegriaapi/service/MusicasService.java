@@ -11,7 +11,9 @@ public interface MusicasService {
 
     List<Musica> getMusicas();
 
-    Musica getMusicaById(Long id) throws Exception;
+    Musica getMusicaById(String id);
 
-    Musica editMusica(final Musica novaMusica, final Long idMusica) throws Exception;
+    Musica editMusica(final Musica musicaAtualizada, final String idMusica);
+
+    void deleteMusica(String id);
 }

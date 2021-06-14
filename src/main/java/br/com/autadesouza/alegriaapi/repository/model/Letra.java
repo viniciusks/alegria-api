@@ -1,10 +1,9 @@
 package br.com.autadesouza.alegriaapi.repository.model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
-
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,23 +11,15 @@ import javax.persistence.*;
 @Setter
 @ToString
 @EqualsAndHashCode
-@Table(name = "letra")
+@Document
 public class Letra {
 
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
-    @Column(name = "musica_id", nullable = false, insertable = false, updatable = false)
-    private Long musicaId;
-
-    @Column(name = "ordem")
     private Integer ordem;
 
-    @Column(name = "tipo", length = -1)
     private String tipo;
 
-    @Column(name = "texto", length = -1)
     private String texto;
 }
