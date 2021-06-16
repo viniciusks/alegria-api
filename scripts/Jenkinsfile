@@ -15,7 +15,9 @@ pipeline {
     stage('Build Image Docker') {
       steps {
         echo '..:: Iniciando a compilacao da imagem spring-boot Docker ::..'
-        sh 'cd .. && mvn spring-boot:build-image'
+        withMaven {
+          sh 'cd .. && mvn spring-boot:build-image'
+        }
       }
     }
   }
