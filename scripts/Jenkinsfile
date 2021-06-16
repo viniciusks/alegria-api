@@ -14,8 +14,8 @@ pipeline {
     }
     stage('Build Image Docker') {
       steps {
-        echo 'Step 1. Hello World'
-        echo 'Step 2. Hello Brazil'
+        echo '..:: Iniciando a compilacao da imagem spring-boot Docker ::..'
+        sh 'cd .. && mvn spring-boot:build-image'
       }
     }
   }
