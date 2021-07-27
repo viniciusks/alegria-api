@@ -1,29 +1,19 @@
 package br.com.autadesouza.alegriaapi.config;
 
 import com.google.common.base.Predicate;
-import static com.google.common.base.Predicates.not;
-import java.util.Arrays;
-import java.util.Collections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.AuthorizationCodeGrantBuilder;
-import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.GrantType;
-import springfox.documentation.service.SecurityReference;
-import springfox.documentation.service.SecurityScheme;
-import springfox.documentation.service.TokenEndpoint;
-import springfox.documentation.service.TokenRequestEndpoint;
 import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger.web.SecurityConfiguration;
-import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Collections;
+
+import static com.google.common.base.Predicates.not;
 
 /**
  *
@@ -40,49 +30,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("br.com.autadesouza.alegriaapi.controller"))
                 .paths(paths())
                 .build()
-                .apiInfo(apiInfo())
-                .securitySchemes(Arrays.asList(securityScheme()))
-                .securityContexts(Arrays.asList(securityContext()));
-    }
-
-    @Bean
-    public SecurityConfiguration security() {
-        return SecurityConfigurationBuilder.builder()
-                .clientId("alegria")
-                .clientSecret("123")
-                .scopeSeparator(" ")
-                .useBasicAuthenticationWithAccessCodeGrant(true)
-                .build();
-    }
-
-    private SecurityScheme securityScheme() {
-        GrantType grantType = new AuthorizationCodeGrantBuilder()
-                .tokenEndpoint(new TokenEndpoint("/wapi/oauth/token", "oauthtoken"))
-                .tokenRequestEndpoint(
-                        new TokenRequestEndpoint("/wapi/oauth/token", "*********", "******"))
-                .build();
-
-        SecurityScheme oauth = new OAuthBuilder().name("spring_oauth")
-                .grantTypes(Arrays.asList(grantType))
-                .scopes(Arrays.asList(scopes()))
-                .build();
-        return oauth;
-    }
-
-    private AuthorizationScope[] scopes() {
-        AuthorizationScope[] scopes = {
-                new AuthorizationScope("read", "for read operations"),
-                new AuthorizationScope("write", "for write operations"),
-                new AuthorizationScope("wapi", "Access wapi API")};
-        return scopes;
-    }
-
-    private SecurityContext securityContext() {
-        return SecurityContext.builder()
-                .securityReferences(
-                        Arrays.asList(new SecurityReference("spring_oauth", scopes())))
-                .forPaths(PathSelectors.regex("/wapi.*"))
-                .build();
+                .apiInfo(apiInfo());
     }
 
     private ApiInfo apiInfo() {

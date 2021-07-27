@@ -4,6 +4,7 @@ import br.com.autadesouza.alegriaapi.repository.AutoresRepository;
 import br.com.autadesouza.alegriaapi.repository.model.Autor;
 import br.com.autadesouza.alegriaapi.service.AutoresService;
 import br.com.autadesouza.alegriaapi.validation.exception.AutorNotFoundException;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,9 @@ import java.util.Optional;
 
 @Log4j2
 @Service
+@AllArgsConstructor
 public class AutoresServiceImpl implements AutoresService {
 
-    @Autowired
     private AutoresRepository autoresRepository;
 
     @Override
