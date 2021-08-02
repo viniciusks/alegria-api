@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "/autores")
@@ -25,7 +26,7 @@ public class AutoresController {
 
     private final AutoresRequestValidator autoresRequestValidator;
 
-    @PostMapping
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<AutorResponse> createAutor(@RequestBody @Validated({Mandatory.class, Values.class}) AutorRequest autorRequest) {
         autoresRequestValidator.validate(autorRequest);
 

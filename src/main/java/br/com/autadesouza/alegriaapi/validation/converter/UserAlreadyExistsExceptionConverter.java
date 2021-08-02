@@ -1,6 +1,6 @@
 package br.com.autadesouza.alegriaapi.validation.converter;
 
-import br.com.autadesouza.alegriaapi.validation.exception.AutorNotFoundException;
+import br.com.autadesouza.alegriaapi.validation.exception.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -8,9 +8,9 @@ import static br.com.autadesouza.alegriaapi.utils.CodeValidationsConstants.NOT_F
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 @Component
-public class AutorNotFoundExceptionConverter extends AbstractExceptionConverter<AutorNotFoundException> {
+public class UserAlreadyExistsExceptionConverter extends AbstractExceptionConverter<UserAlreadyExistsException> {
 
-    private final static String AUTOR_NOT_FOUND = "autor_not_found";
+    private final static String USER_ALREADY_EXISTS = "user_already_exists";
 
     @Override
     protected String getDescriptionKey() {
@@ -19,7 +19,7 @@ public class AutorNotFoundExceptionConverter extends AbstractExceptionConverter<
 
     @Override
     protected String getMessageKey() {
-        return AUTOR_NOT_FOUND;
+        return USER_ALREADY_EXISTS;
     }
 
     @Override

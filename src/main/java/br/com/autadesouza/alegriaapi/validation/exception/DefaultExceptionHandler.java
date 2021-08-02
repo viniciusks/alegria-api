@@ -146,4 +146,13 @@ public class DefaultExceptionHandler {
         final var errorResponse = converter.toErrorResponse(ex);
         return new ResponseEntity<>(errorResponse, errorResponse.getHttpStatus());
     }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    private ResponseEntity<ErrorResponse> handleUserAlreadyExistsException
+            (final UserAlreadyExistsException ex) {
+
+        final var converter = this.errorConverterFactory.getConverter(UserAlreadyExistsException.class);
+        final var errorResponse = converter.toErrorResponse(ex);
+        return new ResponseEntity<>(errorResponse, errorResponse.getHttpStatus());
+    }
 }

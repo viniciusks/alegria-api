@@ -30,6 +30,8 @@ public class User implements UserDetails {
 
     private LocalDateTime birthday;
 
+    private String phoneNumber;
+
     private String email;
 
     private String password;

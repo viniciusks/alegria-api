@@ -16,6 +16,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/oauth/token").permitAll()
                 .antMatchers(HttpMethod.POST, "/oauth/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/musicas").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().permitAll()
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
