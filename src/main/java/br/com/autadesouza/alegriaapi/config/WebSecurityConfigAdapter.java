@@ -1,7 +1,6 @@
 package br.com.autadesouza.alegriaapi.config;
 
 import br.com.autadesouza.alegriaapi.repository.UserRepository;
-import br.com.autadesouza.alegriaapi.repository.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +27,7 @@ public class WebSecurityConfigAdapter extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-        @Override
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
         .passwordEncoder(new BCryptPasswordEncoder());

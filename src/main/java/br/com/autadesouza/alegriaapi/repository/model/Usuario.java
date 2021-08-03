@@ -2,12 +2,14 @@ package br.com.autadesouza.alegriaapi.repository.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -17,7 +19,7 @@ import java.util.Collection;
 @ToString
 @EqualsAndHashCode
 @Document
-public class User implements UserDetails {
+public class Usuario implements UserDetails {
 
     @Id
     private String id;
@@ -42,13 +44,14 @@ public class User implements UserDetails {
 
     private String city;
 
-    private String role;
+    @DBRef
+    private List<Role> roles;
 
     private String image;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.roles;
     }
 
     @Override

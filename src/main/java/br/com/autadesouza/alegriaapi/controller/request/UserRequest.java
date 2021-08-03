@@ -1,6 +1,7 @@
 package br.com.autadesouza.alegriaapi.controller.request;
 
-import br.com.autadesouza.alegriaapi.repository.model.User;
+import br.com.autadesouza.alegriaapi.repository.model.Role;
+import br.com.autadesouza.alegriaapi.repository.model.Usuario;
 import br.com.autadesouza.alegriaapi.validation.annotation.Mandatory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -45,12 +47,12 @@ public class UserRequest {
     private String city;
 
     @NotNull(message = "{mandatory}", groups = Mandatory.class)
-    private String role;
+    private List<Role> roles;
 
     private String image;
 
-    public User toDomain() {
-        return User.builder()
+    public Usuario toDomain() {
+        return Usuario.builder()
                 .name(this.name)
                 .lastname(this.lastname)
                 .fullname(this.fullname)
@@ -61,7 +63,7 @@ public class UserRequest {
                 .country(this.country)
                 .state(this.state)
                 .city(this.city)
-                .role(this.role)
+                .roles(this.roles)
                 .image(this.image)
                 .build();
     }

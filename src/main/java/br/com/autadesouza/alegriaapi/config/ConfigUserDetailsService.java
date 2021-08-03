@@ -1,9 +1,10 @@
 package br.com.autadesouza.alegriaapi.config;
 
 import br.com.autadesouza.alegriaapi.repository.UserRepository;
-import br.com.autadesouza.alegriaapi.repository.model.User;
+import br.com.autadesouza.alegriaapi.repository.model.Usuario;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,10 @@ public class ConfigUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        User user = userRepository.findByEmail(email);
-        if(user == null) {
+        Usuario usuario = userRepository.findByEmail(email);
+        if(usuario == null) {
             throw new UsernameNotFoundException("Usuario não encontrado");
         }
-        return user;
+        return new User(usuario.getUsername(), usuario.getPassword(), true, true, true, true, usuario.getAuthorities());
     }
 }

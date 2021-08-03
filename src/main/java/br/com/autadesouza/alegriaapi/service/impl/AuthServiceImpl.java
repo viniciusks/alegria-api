@@ -1,7 +1,7 @@
 package br.com.autadesouza.alegriaapi.service.impl;
 
 import br.com.autadesouza.alegriaapi.repository.UserRepository;
-import br.com.autadesouza.alegriaapi.repository.model.User;
+import br.com.autadesouza.alegriaapi.repository.model.Usuario;
 import br.com.autadesouza.alegriaapi.service.AuthService;
 import br.com.autadesouza.alegriaapi.validation.exception.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
@@ -17,14 +17,15 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
 
     @Override
-    public User register(User user) {
-        User verifyUser = userRepository.findByEmail(user.getEmail());
-        if(verifyUser != null) {
+    public Usuario register(Usuario usuario) {
+        Usuario verifyUsuario = userRepository.findByEmail(usuario.getEmail());
+        if(verifyUsuario != null) {
             throw new UserAlreadyExistsException("User already exists, please try another email.");
         }
 
-        new BCryptPasswordEncoder().encode(user.getPassword());
-        return userRepository.save(user);
+        String encodePass = new BCryptPasswordEncoder().encode(usuario.getPassword());
+        usuario.setPassword(encodePass);
+        return userRepository.save(usuario);
     }
 
 //    @Override

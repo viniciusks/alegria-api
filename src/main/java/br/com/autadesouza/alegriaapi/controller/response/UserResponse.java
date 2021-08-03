@@ -1,17 +1,12 @@
 package br.com.autadesouza.alegriaapi.controller.response;
 
-import br.com.autadesouza.alegriaapi.repository.model.Autor;
-import br.com.autadesouza.alegriaapi.repository.model.User;
-import br.com.autadesouza.alegriaapi.validation.annotation.Mandatory;
+import br.com.autadesouza.alegriaapi.repository.model.Usuario;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -43,25 +38,22 @@ public class UserResponse {
 
     private String city;
 
-    private String role;
-
     private String image;
 
-    public static UserResponse fromDomain(User user) {
+    public static UserResponse fromDomain(Usuario usuario) {
         return UserResponse.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .lastname(user.getLastname())
-                .fullname(user.getFullname())
-                .birthday(user.getBirthday())
-                .phoneNumber(user.getPhoneNumber())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .country(user.getCountry())
-                .state(user.getState())
-                .city(user.getCity())
-                .role(user.getRole())
-                .image(user.getImage())
+                .id(usuario.getId())
+                .name(usuario.getName())
+                .lastname(usuario.getLastname())
+                .fullname(usuario.getFullname())
+                .birthday(usuario.getBirthday())
+                .phoneNumber(usuario.getPhoneNumber())
+                .email(usuario.getEmail())
+                .password(usuario.getPassword())
+                .country(usuario.getCountry())
+                .state(usuario.getState())
+                .city(usuario.getCity())
+                .image(usuario.getImage())
                 .build();
     }
 }

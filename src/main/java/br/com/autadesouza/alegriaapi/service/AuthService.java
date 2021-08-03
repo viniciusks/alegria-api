@@ -1,8 +1,8 @@
 package br.com.autadesouza.alegriaapi.service;
 
-import br.com.autadesouza.alegriaapi.repository.model.User;
+import br.com.autadesouza.alegriaapi.repository.model.Usuario;
 
 public interface AuthService {
 
-    public User register(User user);
+    Usuario register(Usuario usuario);
 }
