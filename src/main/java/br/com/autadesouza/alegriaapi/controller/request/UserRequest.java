@@ -1,15 +1,17 @@
 package br.com.autadesouza.alegriaapi.controller.request;
 
+import br.com.autadesouza.alegriaapi.repository.RoleRepoistory;
 import br.com.autadesouza.alegriaapi.repository.model.Role;
 import br.com.autadesouza.alegriaapi.repository.model.Usuario;
 import br.com.autadesouza.alegriaapi.validation.annotation.Mandatory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Arrays;
 
 @Getter
 @Setter
@@ -47,11 +49,12 @@ public class UserRequest {
     private String city;
 
     @NotNull(message = "{mandatory}", groups = Mandatory.class)
-    private List<Role> roles;
+    private String role;
 
     private String image;
 
-    public Usuario toDomain() {
+    public Usuario toDomain(Role role) {
+
         return Usuario.builder()
                 .name(this.name)
                 .lastname(this.lastname)
@@ -63,7 +66,7 @@ public class UserRequest {
                 .country(this.country)
                 .state(this.state)
                 .city(this.city)
-                .roles(this.roles)
+                .roles(Arrays.asList(role))
                 .image(this.image)
                 .build();
     }

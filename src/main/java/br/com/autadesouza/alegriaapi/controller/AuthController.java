@@ -2,6 +2,9 @@ package br.com.autadesouza.alegriaapi.controller;
 
 import br.com.autadesouza.alegriaapi.controller.request.UserRequest;
 import br.com.autadesouza.alegriaapi.controller.response.UserResponse;
+import br.com.autadesouza.alegriaapi.repository.RoleRepoistory;
+import br.com.autadesouza.alegriaapi.repository.model.Estados;
+import br.com.autadesouza.alegriaapi.repository.model.Role;
 import br.com.autadesouza.alegriaapi.repository.model.Usuario;
 import br.com.autadesouza.alegriaapi.service.AuthService;
 import br.com.autadesouza.alegriaapi.validation.annotation.Mandatory;
@@ -11,6 +14,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -25,7 +32,9 @@ public class AuthController {
 
     private UserRequestValidator userRequestValidator;
 
-    @GetMapping("/login")
+    private RoleRepoistory roleRepoistory;
+
+    @PostMapping("/login")
     public ResponseEntity<Usuario> login() throws Exception {
         return new ResponseEntity(new Usuario(), OK);
     }
@@ -35,7 +44,28 @@ public class AuthController {
 
         userRequestValidator.validate(userRequest);
 
-        final var user = UserResponse.fromDomain(authService.register(userRequest.toDomain()));
+        Role role = roleRepoistory.findByNomeRole(userRequest.getRole());
+
+        final var user = UserResponse.fromDomain(authService.register(userRequest.toDomain(role)));
         return new ResponseEntity<>(user, CREATED);
+    }
+
+    @GetMapping(value = "/ufs", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> getUFs() {
+
+        List<String> estados = new ArrayList<>();
+
+        for (Estados estado : Estados.values()) {
+            estados.add(estado.toString());
+        }
+        return new ResponseEntity<>(estados, OK);
+    }
+
+    @GetMapping(value = "/ufs/{UF}/distritos", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> getDistritosByUf(@PathVariable("UF") String uf) throws IOException {
+
+        final var distritos = authService.getDistritosByUf(uf);
+
+        return new ResponseEntity<>(distritos, OK);
     }
 }

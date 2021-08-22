@@ -14,8 +14,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/oauth/token").permitAll()
-                .antMatchers(HttpMethod.POST, "/oauth/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/oauth/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/oauth/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/swagger-ui.html").permitAll()
                 .antMatchers(HttpMethod.GET, "/musicas").permitAll()
                 .antMatchers(HttpMethod.POST, "/musicas").hasRole("ADMIN")
                 .anyRequest().authenticated()

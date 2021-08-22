@@ -36,6 +36,8 @@ public class UserResponse {
 
     private String state;
 
+    private String role;
+
     private String city;
 
     private String image;
@@ -52,6 +54,7 @@ public class UserResponse {
                 .password(usuario.getPassword())
                 .country(usuario.getCountry())
                 .state(usuario.getState())
+                .role(usuario.getRoles().get(0).getNomeRole())
                 .city(usuario.getCity())
                 .image(usuario.getImage())
                 .build();

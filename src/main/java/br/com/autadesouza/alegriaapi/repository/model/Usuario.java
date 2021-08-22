@@ -1,5 +1,6 @@
 package br.com.autadesouza.alegriaapi.repository.model;
 
+import br.com.autadesouza.alegriaapi.repository.RoleRepoistory;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
