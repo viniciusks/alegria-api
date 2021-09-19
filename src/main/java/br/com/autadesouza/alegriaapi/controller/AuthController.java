@@ -1,6 +1,7 @@
 package br.com.autadesouza.alegriaapi.controller;
 
 import br.com.autadesouza.alegriaapi.controller.request.UserRequest;
+import br.com.autadesouza.alegriaapi.controller.response.EstadosResponse;
 import br.com.autadesouza.alegriaapi.controller.response.UserResponse;
 import br.com.autadesouza.alegriaapi.repository.RoleRepoistory;
 import br.com.autadesouza.alegriaapi.repository.model.Estados;
@@ -52,14 +53,12 @@ public class AuthController {
     }
 
     @GetMapping(value = "/ufs", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<String>> getUFs() {
-
-        List<String> estados = new ArrayList<>();
-
+    public ResponseEntity<EstadosResponse> getUFs() {
+        ArrayList<String> estados = new ArrayList<>();
         for (Estados estado : Estados.values()) {
             estados.add(estado.toString());
         }
-        return new ResponseEntity<>(estados, OK);
+        return new ResponseEntity<>(new EstadosResponse(estados), OK);
     }
 
     @GetMapping(value = "/ufs/{UF}/distritos", produces = APPLICATION_JSON_VALUE)

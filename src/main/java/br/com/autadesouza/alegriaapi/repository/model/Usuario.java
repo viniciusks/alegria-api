@@ -1,6 +1,5 @@
 package br.com.autadesouza.alegriaapi.repository.model;
 
-import br.com.autadesouza.alegriaapi.repository.RoleRepoistory;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -9,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -48,7 +48,39 @@ public class Usuario implements UserDetails {
     @DBRef
     private List<Role> roles;
 
+    private String artisticFormation;
+
+    private String professionalArt;
+
+    private String englishLevel;
+
+    private String spanishLevel;
+
+    private String otherLanguages;
+
+    private String visualArts;
+
+    private Boolean isWorker;
+
+    private Boolean isPlayer;
+
+    private Boolean isTheater;
+
+    private Boolean isLiterature;
+
+    private Boolean isDancer;
+
+    private Boolean isEFASCoordinator;
+
+    private Boolean isCONCAFRASCoordinator;
+
+    private Boolean isActive;
+
+    private ArrayList<String> instruments;
+
     private String image;
+
+    private String coordinator;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
