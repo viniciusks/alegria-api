@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "ibge-client", url = "https://servicodados.ibge.gov.br/api/v1")
 public interface IbgeClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/localidades/estados/{UF}/distritos")
-    String getDistritosByUf(@PathVariable("UF") String uf);
+    @RequestMapping(method = RequestMethod.GET, value = "/localidades/estados/{UF}/municipios")
+    String getMunicipiosByUf(@PathVariable("UF") String uf);
 }

@@ -40,20 +40,20 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public List<String> getDistritosByUf(String uf) throws IOException {
-        var response = ibgeClient.getDistritosByUf(uf);
+    public List<String> getMunicipiosByUf(String uf) throws IOException {
+        var response = ibgeClient.getMunicipiosByUf(uf);
         ObjectMapper mapper = new ObjectMapper().configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.configure(DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         var ibgeResponseArray = mapper.readValue(response, IbgeResponse[].class);
-        List<String> distritos = new ArrayList<>();
+        List<String> municipios = new ArrayList<>();
 
         for(IbgeResponse distrito : ibgeResponseArray) {
-            distritos.add(distrito.getNome());
+            municipios.add(distrito.getNome());
         }
 
-        Collections.sort(distritos);
+        Collections.sort(municipios);
 
-        return distritos;
+        return municipios;
     }
 
 //    @Override

@@ -61,11 +61,11 @@ public class AuthController {
         return new ResponseEntity<>(new EstadosResponse(estados), OK);
     }
 
-    @GetMapping(value = "/ufs/{UF}/distritos", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<String>> getDistritosByUf(@PathVariable("UF") String uf) throws IOException {
+    @GetMapping(value = "/ufs/{UF}/municipios", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> getMunicipiosByUf(@PathVariable("UF") String uf) throws IOException {
 
-        final var distritos = authService.getDistritosByUf(uf);
+        final var municipios = authService.getMunicipiosByUf(uf);
 
-        return new ResponseEntity<>(distritos, OK);
+        return new ResponseEntity<>(municipios, OK);
     }
 }

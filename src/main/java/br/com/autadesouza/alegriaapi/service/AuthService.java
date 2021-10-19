@@ -9,5 +9,5 @@ public interface AuthService {
 
     Usuario register(Usuario usuario);
 
-    List<String> getDistritosByUf(String uf) throws IOException;
+    List<String> getMunicipiosByUf(String uf) throws IOException;
 }
