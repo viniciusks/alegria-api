@@ -1,7 +1,10 @@
 package br.com.autadesouza.alegriaapi.controller;
 
+import br.com.autadesouza.alegriaapi.config.ConfigUserDetailsService;
+import br.com.autadesouza.alegriaapi.controller.request.LoginRequest;
 import br.com.autadesouza.alegriaapi.controller.request.UserRequest;
 import br.com.autadesouza.alegriaapi.controller.response.EstadosResponse;
+import br.com.autadesouza.alegriaapi.controller.response.LoginResponse;
 import br.com.autadesouza.alegriaapi.controller.response.UserResponse;
 import br.com.autadesouza.alegriaapi.repository.RoleRepoistory;
 import br.com.autadesouza.alegriaapi.repository.model.Estados;
@@ -13,12 +16,24 @@ import br.com.autadesouza.alegriaapi.validation.annotation.Values;
 import br.com.autadesouza.alegriaapi.validation.validator.UserRequestValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Request;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -37,8 +52,9 @@ public class AuthController {
     private RoleRepoistory roleRepoistory;
 
     @PostMapping("/login")
-    public ResponseEntity<Usuario> login() throws Exception {
-        return new ResponseEntity(new Usuario(), OK);
+    public ResponseEntity<LoginResponse> login(@RequestBody @Validated({Mandatory.class, Values.class}) LoginRequest loginRequest) throws Exception {
+        final var response = authService.login(loginRequest);
+        return new ResponseEntity(response, OK);
     }
 
     @PostMapping(value = "/register", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

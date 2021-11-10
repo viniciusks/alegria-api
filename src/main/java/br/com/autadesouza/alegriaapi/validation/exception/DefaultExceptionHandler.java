@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Level;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -152,6 +153,15 @@ public class DefaultExceptionHandler {
             (final UserAlreadyExistsException ex) {
 
         final var converter = this.errorConverterFactory.getConverter(UserAlreadyExistsException.class);
+        final var errorResponse = converter.toErrorResponse(ex);
+        return new ResponseEntity<>(errorResponse, errorResponse.getHttpStatus());
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    private ResponseEntity<ErrorResponse> handleUsernameNotFoundException
+            (final UsernameNotFoundException ex) {
+
+        final var converter = this.errorConverterFactory.getConverter(UsernameNotFoundException.class);
         final var errorResponse = converter.toErrorResponse(ex);
         return new ResponseEntity<>(errorResponse, errorResponse.getHttpStatus());
     }

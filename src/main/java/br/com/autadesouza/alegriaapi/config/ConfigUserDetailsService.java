@@ -20,7 +20,7 @@ public class ConfigUserDetailsService implements UserDetailsService {
 
         Usuario usuario = userRepository.findByEmail(email);
         if(usuario == null) {
-            throw new UsernameNotFoundException("Usuario não encontrado");
+            throw new UsernameNotFoundException("User not found.");
         }
         return new User(usuario.getUsername(), usuario.getPassword(), true, true, true, true, usuario.getAuthorities());
     }

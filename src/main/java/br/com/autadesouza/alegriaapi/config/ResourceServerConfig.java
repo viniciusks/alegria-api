@@ -23,8 +23,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/musicas").permitAll()
                 .antMatchers(HttpMethod.POST, "/musicas").hasRole("ADMIN")
                 .anyRequest().authenticated()
-                .and().formLogin().permitAll()
+                .and().formLogin()
+                .permitAll()
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-        .and().cors();
+                .and().cors().disable();
     }
 }
