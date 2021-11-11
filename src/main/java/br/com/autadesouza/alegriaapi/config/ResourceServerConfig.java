@@ -14,8 +14,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-                .and().cors().disable()
+        http.and().cors().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/oauth/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/oauth/**").permitAll()
@@ -25,7 +24,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .permitAll()
-                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .and().cors().disable();
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
     }
 }
