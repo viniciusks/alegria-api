@@ -24,6 +24,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .permitAll()
-                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .and().cors().and().csrf().disable();
     }
 }
