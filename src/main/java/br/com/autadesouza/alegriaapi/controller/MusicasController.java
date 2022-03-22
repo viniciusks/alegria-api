@@ -8,6 +8,7 @@ import br.com.autadesouza.alegriaapi.validation.annotation.Values;
 import br.com.autadesouza.alegriaapi.validation.validator.MusicasRequestValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class MusicasController {
 
     private final MusicasRequestValidator musicasRequestValidator;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<MusicaResponse> createMusica(@RequestBody @Validated({Mandatory.class, Values.class})
                                                                    MusicaRequest musicaRequest) {
@@ -48,6 +50,7 @@ public class MusicasController {
         return new ResponseEntity(musica, OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<MusicaResponse> editMusica(@RequestBody @Validated({Mandatory.class, Values.class})
                                                              MusicaRequest editMusicaRequest, @PathVariable("id") String id) throws Exception {
@@ -58,6 +61,7 @@ public class MusicasController {
         return new ResponseEntity<>(musica, OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void deleteMusica(@PathVariable("id") String id) {
         musicasService.deleteMusica(id);

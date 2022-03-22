@@ -8,6 +8,7 @@ import br.com.autadesouza.alegriaapi.validation.annotation.Values;
 import br.com.autadesouza.alegriaapi.validation.validator.AutoresRequestValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class AutoresController {
 
     private final AutoresRequestValidator autoresRequestValidator;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<AutorResponse> createAutor(@RequestBody @Validated({Mandatory.class, Values.class}) AutorRequest autorRequest) {
         autoresRequestValidator.validate(autorRequest);
@@ -46,6 +48,7 @@ public class AutoresController {
         return new ResponseEntity(autor, OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<AutorResponse> editAutor(@RequestBody @Validated({Mandatory.class, Values.class})
                                                              AutorRequest autorRequest, @PathVariable("id") String id) throws Exception {

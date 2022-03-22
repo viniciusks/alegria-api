@@ -1,7 +1,6 @@
 package br.com.autadesouza.alegriaapi.controller;
 
-import br.com.autadesouza.alegriaapi.controller.response.GeneroResponse;
-import br.com.autadesouza.alegriaapi.service.GenerosService;
+import br.com.autadesouza.alegriaapi.controller.response.MusicaResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,15 +13,14 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping(value = "/generos")
+@RequestMapping(value = "/admin/users")
 @AllArgsConstructor
-public class GenerosController {
+public class AdminUsersController {
 
-    private final GenerosService generosService;
-
-    @GetMapping
-    public ResponseEntity<GeneroResponse> getGeneros() {
-        List<GeneroResponse> generos = GeneroResponse.fromDomain(generosService.getGeneros());
-        return new ResponseEntity(generos, OK);
-    }
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @GetMapping()
+//    public ResponseEntity<MusicaResponse> getAllUsers() {
+//        List<MusicaResponse> musicas = MusicaResponse.fromDomain(musicasService.getMusicas());
+//        return new ResponseEntity(musicas, OK);
+//    }
 }

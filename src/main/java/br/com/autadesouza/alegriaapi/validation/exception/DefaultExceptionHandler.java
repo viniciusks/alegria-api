@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Level;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -99,6 +100,12 @@ public class DefaultExceptionHandler {
 
         return handleException("handleMissingRequestHeaderException", FORBIDDEN, ex,
                 MissingRequestHeaderException.class, INFO);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    private ResponseEntity<Void> handleAccessDeniedExceptionException(final AccessDeniedException ex) {
+        return handleException("handleAccessDeniedExceptionException", FORBIDDEN, ex,
+                AccessDeniedException.class, INFO);
     }
 
     @ExceptionHandler(Exception.class)
