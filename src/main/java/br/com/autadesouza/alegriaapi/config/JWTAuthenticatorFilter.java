@@ -1,9 +1,11 @@
 package br.com.autadesouza.alegriaapi.config;
 
+import br.com.autadesouza.alegriaapi.controller.response.LoginResponse;
 import br.com.autadesouza.alegriaapi.repository.model.DetalheUsuario;
 import br.com.autadesouza.alegriaapi.repository.model.Usuario;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.google.gson.Gson;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -62,7 +64,14 @@ public class JWTAuthenticatorFilter extends UsernamePasswordAuthenticationFilter
                 .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(TOKEN_PASSWORD));
 
-        response.getWriter().write(token);
+        LoginResponse loginResponse = new LoginResponse(detalheUsuario.getUsername(), token);
+        Gson gson = new Gson();
+
+        String jsonLoginResponse = gson.toJson(loginResponse);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().print(jsonLoginResponse);
         response.getWriter().flush();
 
     }
