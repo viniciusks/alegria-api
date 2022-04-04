@@ -47,7 +47,7 @@ public class JWTConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(new JWTAuthenticatorFilter(authenticationManager()))
                 .addFilter(new JWTValidatorFilter(authenticationManager(), usuarioService))
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors();
     }
 
     @Bean
